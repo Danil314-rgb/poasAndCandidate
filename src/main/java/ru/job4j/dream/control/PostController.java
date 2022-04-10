@@ -3,10 +3,7 @@ package ru.job4j.dream.control;
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.job4j.dream.model.City;
 import ru.job4j.dream.model.Post;
 import ru.job4j.dream.service.CityService;
@@ -49,21 +46,26 @@ public class PostController {
         return "redirect:/posts";
     }
 
-    @PostMapping("/updatePost")
-    public String updatePost(@ModelAttribute Post post) {
-        postService.update(post);
-        return "redirect:/posts";
-    }
-
     @PostMapping("/createPost")
     public String createPost(@ModelAttribute Post post) {
-        postService.create(post);
+        City cityNow = cityService.findById(post.getCity().getId());
+        var cityNowName = cityNow.getName();
+        postService.create(post, cityNowName);
         return "redirect:/posts";
     }
 
     @GetMapping("/formUpdatePost/{postId}")
     public String formUpdatePost(Model model, @PathVariable("postId") int id) {
         model.addAttribute("post", postService.findById(id));
+        model.addAttribute("cities", cityService.getAllCities());
         return "updatePost";
+    }
+
+    @PostMapping("/updatePost")
+    public String updatePost(@ModelAttribute Post post, @RequestParam("city.id") int id) {
+        post.setCity(cityService.findById(id));
+        Post post1 = post;
+        postService.update(post);
+        return "redirect:/posts";
     }
 }

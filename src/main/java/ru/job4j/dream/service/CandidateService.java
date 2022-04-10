@@ -9,8 +9,6 @@ import java.util.Collection;
 @Service
 public class CandidateService {
 
-    /*private static final CandidateService INST = new CandidateService();*/
-
     private final CandidateStore candidateStore;
 
     public CandidateService(CandidateStore candidateStore) {

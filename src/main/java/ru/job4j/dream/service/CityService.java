@@ -23,4 +23,8 @@ public class CityService {
     public City findById(int id) {
         return cities.get(id);
     }
+
+    public String getName(int id) {
+        return cities.get(id).getName();
+    }
 }

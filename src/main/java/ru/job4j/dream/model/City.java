@@ -1,5 +1,7 @@
 package ru.job4j.dream.model;
 
+import ru.job4j.dream.service.CityService;
+
 import java.util.Objects;
 
 public class City {
@@ -43,4 +45,6 @@ public class City {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+
 }
