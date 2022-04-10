@@ -20,9 +20,9 @@ public class CandidateStore {
     private final Map<Integer, Candidate> candidates = new ConcurrentHashMap<>();
 
     private CandidateStore() {
-        candidates.put(1, new Candidate(1, "Java Junior", "Без опыта", LocalDateTime.now()));
-        candidates.put(2, new Candidate(2, "Java Middle", "Опты от года", LocalDateTime.now()));
-        candidates.put(3, new Candidate(3, "Java Senior", "Опыт от 3 лет", LocalDateTime.now()));
+        candidates.put(1, new Candidate(1, "Java Junior", "Без опыта", LocalDateTime.now(), new byte[0]));
+        candidates.put(2, new Candidate(2, "Java Middle", "Опты от года", LocalDateTime.now(), new byte[0]));
+        candidates.put(3, new Candidate(3, "Java Senior", "Опыт от 3 лет", LocalDateTime.now(), new byte[0]));
     }
 
     public static CandidateStore instOf() {
@@ -48,7 +48,8 @@ public class CandidateStore {
                 candidate.getId(),
                 candidate.getName(),
                 candidate.getDescription(),
-                LocalDateTime.now()
+                LocalDateTime.now(),
+                candidate.getPhoto()
         ));
     }
 
@@ -57,7 +58,8 @@ public class CandidateStore {
                 candidate.getId(),
                 candidate.getName(),
                 candidate.getDescription(),
-                LocalDateTime.now()
+                LocalDateTime.now(),
+                candidate.getPhoto()
         ));
     }
 }
