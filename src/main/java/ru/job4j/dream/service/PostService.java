@@ -1,12 +1,10 @@
 package ru.job4j.dream.service;
 
 import org.springframework.stereotype.Service;
-import ru.job4j.dream.model.City;
 import ru.job4j.dream.model.Post;
 import ru.job4j.dream.persistence.PostStore;
 
 import java.util.Collection;
-import java.util.List;
 
 @Service
 public class PostService {
@@ -20,13 +18,6 @@ public class PostService {
     }
 
     public Collection<Post> findAll() {
-        //return postStore.findAll();
-        /*Collection<Post> posts = postStore.findAll();
-        posts.forEach(
-                post -> post.setCity(
-                        cityService.findById(post.getCity().getId())
-                )
-        );*/
         return postStore.findAll();
     }
 

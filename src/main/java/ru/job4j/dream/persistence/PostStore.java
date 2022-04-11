@@ -19,9 +19,9 @@ public class PostStore {
     private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
 
     private PostStore() {
-        posts.put(1, new Post(1, "Junior Java Job", new City(1, "Москва")));
-        posts.put(2, new Post(2, "Middle Java Job", new City(2, "СПБ")));
-        posts.put(3, new Post(3, "Senior Java Job", new City(3, "Екб")));
+        posts.put(1, new Post(1, "Junior Java Job", "Без опыта", new City(1, "Москва")));
+        posts.put(2, new Post(2, "Middle Java Job", "Опыт 1 год", new City(2, "СПБ")));
+        posts.put(3, new Post(3, "Senior Java Job", "Опыт 3 года", new City(3, "Екб")));
     }
 
     public Collection<Post> findAll() {
@@ -43,16 +43,16 @@ public class PostStore {
         posts.put(post.getId(), new Post(
                 post.getId(),
                 post.getName(),
+                post.getDescription(),
                 post.getCity()
         ));
     }
 
     public void update(Post post) {
-        //City city1 = city;
-        Post post1 = post;
         posts.put(post.getId(), new Post(
                 post.getId(),
                 post.getName(),
+                post.getDescription(),
                 post.getCity()));
     }
 }
