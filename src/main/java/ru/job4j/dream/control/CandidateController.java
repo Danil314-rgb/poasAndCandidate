@@ -14,6 +14,7 @@ import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.service.CandidateService;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 @ThreadSafe
 @Controller
@@ -31,36 +32,29 @@ public class CandidateController {
         return "candidates";
     }
 
-    @GetMapping("/addCandidate")
+    /*@GetMapping("/addCandidate")
     public String addCandidate(Model model) {
         model.addAttribute("candidate", new Candidate());
         return "addCandidate";
-    }
+    }*/
 
-    @GetMapping("/formCandidate")
+    @GetMapping("/formAddCandidate")
     public String formCandidate(Model model) {
         return "addCandidate";
     }
 
-    @PostMapping("/saveCandidate")
+    /*@PostMapping("/saveCandidate")
     public String saveCandidate(@ModelAttribute Candidate candidate) {
         candidateService.add(candidate);
         return "redirect:/candidates";
-    }
+    }*/
 
     @PostMapping("/createCandidate")
     public String createCandidate(@ModelAttribute Candidate candidate,
                                   @RequestParam("file")MultipartFile file) throws IOException {
         candidate.setPhoto(file.getBytes());
+        candidate.setCreated(LocalDateTime.now());
         candidateService.create(candidate);
-        return "redirect:/candidates";
-    }
-
-    @PostMapping("/updateCandidate")
-    public String updateCandidate(@ModelAttribute Candidate candidate,
-                                  @RequestParam("file")MultipartFile file) throws IOException {
-        candidate.setPhoto(file.getBytes());
-        candidateService.update(candidate);
         return "redirect:/candidates";
     }
 
@@ -70,7 +64,15 @@ public class CandidateController {
         return "updateCandidate";
     }
 
-    /**/
+    @PostMapping("/updateCandidate")
+    public String updateCandidate(@ModelAttribute Candidate candidate,
+                                  @RequestParam("file")MultipartFile file) throws IOException {
+        candidate.setPhoto(file.getBytes());
+        candidate.setCreated(LocalDateTime.now());
+        candidateService.update(candidate);
+        return "redirect:/candidates";
+    }
+
     @GetMapping("/photoCandidate/{candidateId}")
     public ResponseEntity<Resource> download(@PathVariable("candidateId") int candidateId) {
         Candidate candidate = candidateService.findById(candidateId);

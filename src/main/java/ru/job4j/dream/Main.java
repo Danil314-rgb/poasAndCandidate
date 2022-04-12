@@ -3,6 +3,8 @@ package ru.job4j.dream;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 
 import java.io.BufferedReader;
@@ -11,13 +13,13 @@ import java.util.Properties;
 
 
 @SpringBootApplication
-public class Main {
+public class Main extends SpringBootServletInitializer {
 
     private Properties loadDbProperties() {
         Properties cfg = new Properties();
         try (BufferedReader io = new BufferedReader(
                 new InputStreamReader(
-                        Main.class.getClassLoader().getResourceAsStream("db.properties")
+                        Main.class.getClassLoader().getResourceAsStream("app.properties")
                 )
         )) {
             cfg.load(io);
@@ -45,6 +47,11 @@ public class Main {
         pool.setMaxOpenPreparedStatements(100);
         return pool;
     }
+
+    /*@Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(Main.class);
+    }*/
 
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
