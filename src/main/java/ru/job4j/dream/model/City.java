@@ -1,15 +1,18 @@
 package ru.job4j.dream.model;
 
-import ru.job4j.dream.service.CityService;
-
+import java.io.Serializable;
 import java.util.Objects;
 
-public class City {
+public class City implements Serializable {
 
     private int id;
     private String name;
 
     public City() {
+    }
+
+    public City(String name) {
+        this.name = name;
     }
 
     public City(int id, String name) {
@@ -45,6 +48,5 @@ public class City {
     public int hashCode() {
         return Objects.hash(id);
     }
-
 
 }

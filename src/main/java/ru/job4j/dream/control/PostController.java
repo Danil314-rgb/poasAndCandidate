@@ -27,29 +27,18 @@ public class PostController {
         return "posts";
     }
 
-    @GetMapping("/addPost")
-    public String addPost(Model model) {
-        model.addAttribute("post", new Post());
-        return "addPost";
-    }
-
-    @GetMapping("/formPost")
+    @GetMapping("/formAddPost")
     public String formAddPost(Model model) {
         model.addAttribute("cities", cityService.getAllCities());
         return "addPost";
-    }
-
-    @PostMapping("/savePost")
-    public String savePost(@ModelAttribute Post post) {
-        postService.add(post);
-        return "redirect:/posts";
     }
 
     @PostMapping("/createPost")
     public String createPost(@ModelAttribute Post post) {
         City cityNow = cityService.findById(post.getCity().getId());
         var cityNowName = cityNow.getName();
-        postService.create(post, cityNowName);
+        post.setCity(cityNow);
+        postService.create(post);
         return "redirect:/posts";
     }
 
@@ -63,7 +52,6 @@ public class PostController {
     @PostMapping("/updatePost")
     public String updatePost(@ModelAttribute Post post, @RequestParam("city.id") int id) {
         post.setCity(cityService.findById(id));
-        Post post1 = post;
         postService.update(post);
         return "redirect:/posts";
     }

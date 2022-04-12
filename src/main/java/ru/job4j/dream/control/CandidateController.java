@@ -32,22 +32,10 @@ public class CandidateController {
         return "candidates";
     }
 
-    /*@GetMapping("/addCandidate")
-    public String addCandidate(Model model) {
-        model.addAttribute("candidate", new Candidate());
-        return "addCandidate";
-    }*/
-
     @GetMapping("/formAddCandidate")
-    public String formCandidate(Model model) {
+    public String formCandidate() {
         return "addCandidate";
     }
-
-    /*@PostMapping("/saveCandidate")
-    public String saveCandidate(@ModelAttribute Candidate candidate) {
-        candidateService.add(candidate);
-        return "redirect:/candidates";
-    }*/
 
     @PostMapping("/createCandidate")
     public String createCandidate(@ModelAttribute Candidate candidate,

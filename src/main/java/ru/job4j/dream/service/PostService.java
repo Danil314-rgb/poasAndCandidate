@@ -1,39 +1,35 @@
 package ru.job4j.dream.service;
 
+import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
 import ru.job4j.dream.model.Post;
-import ru.job4j.dream.persistence.PostStore;
+import ru.job4j.dream.persistence.PostDbStore;
 
 import java.util.Collection;
 
+@ThreadSafe
 @Service
 public class PostService {
 
-    private final PostStore postStore;
-    private final CityService cityService;
+    private final PostDbStore postDbStore;
 
-    public PostService(PostStore postStore, CityService cityService) {
-        this.postStore = postStore;
-        this.cityService = cityService;
+    public PostService(PostDbStore postDbStore) {
+        this.postDbStore = postDbStore;
     }
 
     public Collection<Post> findAll() {
-        return postStore.findAll();
-    }
-
-    public void add(Post post) {
-        postStore.add(post);
+        return postDbStore.findAll();
     }
 
     public Post findById(int id) {
-        return postStore.findById(id);
+        return postDbStore.findById(id);
     }
 
-    public void create(Post post, String name) {
-        postStore.create(post, name);
+    public void create(Post post) {
+        postDbStore.create(post);
     }
 
     public void update(Post post) {
-        postStore.update(post);
+        postDbStore.update(post);
     }
 }

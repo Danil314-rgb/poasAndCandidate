@@ -11,29 +11,29 @@ import java.util.*;
 @Service
 public class UserService {
 
-    private final UserDbStore store;
+    private final UserDbStore userDbStore;
 
-    public UserService(UserDbStore store) {
-        this.store = store;
+    public UserService(UserDbStore userDbStore) {
+        this.userDbStore = userDbStore;
     }
 
     public Collection<User> findAll() {
-        return store.findAll();
+        return userDbStore.findAll();
     }
 
     public Optional<User> findUserByEmailAndPwd(String email, String password) {
-        return store.findByEmailAndPwd(email, password);
+        return userDbStore.findByEmailAndPwd(email, password);
     }
 
     public Optional<User> add(User user) {
-        return store.add(user);
+        return userDbStore.add(user);
     }
 
     public void create(User user) {
-        store.create(user);
+        userDbStore.create(user);
     }
 
     public void update(User user) {
-        store.update(user);
+        userDbStore.update(user);
     }
 }

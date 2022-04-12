@@ -23,11 +23,11 @@ public class CandidateDbStore {
 
     public List<Candidate> findAll() {
         List<Candidate> candidates = new ArrayList<>();
-        try (Connection connection = pool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(
+        try (Connection cn = pool.getConnection();
+             PreparedStatement statement = cn.prepareStatement(
                      "select * from candidates"
              )) {
-            try(ResultSet res = statement.executeQuery()) {
+            try (ResultSet res = statement.executeQuery()) {
                 while (res.next()) {
                     candidates.add(new Candidate(
                             res.getInt("id"),
@@ -47,17 +47,17 @@ public class CandidateDbStore {
 
     public Candidate create(Candidate candidate) {
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps =  cn.prepareStatement(
+             PreparedStatement statement = cn.prepareStatement(
                      "INSERT INTO candidates (name, description, created, photo)" +
                              " VALUES (?, ?, ?, ?)",
                      PreparedStatement.RETURN_GENERATED_KEYS)
         ) {
-            ps.setString(1, candidate.getName());
-            ps.setString(2, candidate.getDescription());
-            ps.setTimestamp(3, Timestamp.valueOf(candidate.getCreated()));
-            ps.setBytes(4, candidate.getPhoto());
-            ps.execute();
-            try (ResultSet id = ps.getGeneratedKeys()) {
+            statement.setString(1, candidate.getName());
+            statement.setString(2, candidate.getDescription());
+            statement.setTimestamp(3, Timestamp.valueOf(candidate.getCreated()));
+            statement.setBytes(4, candidate.getPhoto());
+            statement.execute();
+            try (ResultSet id = statement.getGeneratedKeys()) {
                 if (id.next()) {
                     candidate.setId(id.getInt(1));
                 }
@@ -70,16 +70,18 @@ public class CandidateDbStore {
 
     public void update(Candidate candidate) {
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps =
+             PreparedStatement statement =
                      cn.prepareStatement(
-                             "UPDATE candidates SET name = ?, description = ?, created = ?, photo = ? where id = ?"
+                             "UPDATE candidates" +
+                                     " SET name = ?, description = ?, created = ?, photo = ? " +
+                                     "where id = ?"
                      )) {
-            ps.setString(1, candidate.getName());
-            ps.setString(2, candidate.getDescription());
-            ps.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
-            ps.setBytes(4, candidate.getPhoto());
-            ps.setInt(5, candidate.getId());
-            ps.execute();
+            statement.setString(1, candidate.getName());
+            statement.setString(2, candidate.getDescription());
+            statement.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
+            statement.setBytes(4, candidate.getPhoto());
+            statement.setInt(5, candidate.getId());
+            statement.execute();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -87,11 +89,11 @@ public class CandidateDbStore {
 
     public Candidate findById(int id) {
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement(
+             PreparedStatement statement = cn.prepareStatement(
                      "SELECT * FROM candidates AS c WHERE c.id = ?")
         ) {
-            ps.setInt(1, id);
-            try (ResultSet it = ps.executeQuery()) {
+            statement.setInt(1, id);
+            try (ResultSet it = statement.executeQuery()) {
                 if (it.next()) {
                     return new Candidate(
                             it.getInt("id"),

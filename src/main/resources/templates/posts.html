@@ -46,7 +46,6 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Название</th>
-                <!--<th scope="col">Id Города</th>-->
                 <th scope="col">Описание</th>
                 <th scope="col">Название Города</th>
             </tr>
@@ -61,7 +60,6 @@
                     <span th:text="${post.name}"></span>
                 </td>
                 <td th:text="${post.description}"></td>
-                <!--<td th:text="${post.city.id}"></td>-->
                 <td th:text="${post.city.getName()}"></td>
             </tr>
             </tbody>
