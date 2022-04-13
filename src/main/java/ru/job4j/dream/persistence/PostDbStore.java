@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
+/*@Repository
 public class PostDbStore {
 
     private final BasicDataSource pool;
@@ -107,4 +107,4 @@ public class PostDbStore {
         }
         return null;
     }
-}
+}*/

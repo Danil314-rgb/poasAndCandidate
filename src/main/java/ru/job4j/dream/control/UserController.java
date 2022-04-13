@@ -12,7 +12,6 @@ import ru.job4j.dream.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Optional;
 
 @ThreadSafe
 @Controller
@@ -34,14 +33,14 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(@ModelAttribute User user, HttpServletRequest req) {
-        Optional<User> userDb = userService.findUserByEmailAndPwd(
+        User userDb = userService.findUserByEmailAndPwd(
                 user.getEmail(), user.getPassword()
         );
-        if (userDb.isEmpty()) {
+        if (userDb == null) {
             return "redirect:/loginPage?fail=true";
         }
         HttpSession session = req.getSession();
-        session.setAttribute("user", userDb.get());
+        session.setAttribute("user", userDb);
         return "redirect:/index";
     }
 
@@ -55,13 +54,13 @@ public class UserController {
 
     @PostMapping("/register")
     public String register(@ModelAttribute User user) {
-        Optional<User> userDb = userService.findUserByEmailAndPwd(
+        User userDb = userService.findUserByEmailAndPwd(
                 user.getEmail(), user.getPassword()
         );
-        if (userDb.isPresent()) {
+        if (userDb != null) {
             return "redirect:/regPage?fail=true";
         }
-        userService.add(user);
+        userService.create(user);
         return "redirect:/index";
     }
 

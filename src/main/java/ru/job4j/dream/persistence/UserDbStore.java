@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+/*@Repository
 public class UserDbStore {
 
     private final BasicDataSource pool;
@@ -20,31 +20,7 @@ public class UserDbStore {
         this.pool = pool;
     }
 
-    public List<User> findAll() {
-        List<User> users = new ArrayList<>();
-        try (Connection cn = pool.getConnection();
-             PreparedStatement ps =  cn.prepareStatement("SELECT * FROM users")
-        ) {
-            try (ResultSet it = ps.executeQuery()) {
-                while (it.next()) {
-                    users.add(
-                            new User(
-                                    it.getInt("id"),
-                                    it.getString("name"),
-                                    it.getString("email"),
-                                    it.getString("password")
-                            )
-                    );
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return users;
-    }
-
-
-    public Optional<User> add(User user) {
+    public Optional<User> create(User user) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps =  cn.prepareStatement("INSERT INTO users(name, email, password) VALUES (?, ?, ?)",
                      PreparedStatement.RETURN_GENERATED_KEYS)
@@ -63,23 +39,6 @@ public class UserDbStore {
             user = null;
         }
         return Optional.ofNullable(user);
-    }
-
-    public void create(User user) {
-        add(user);
-    }
-
-    public void update(User user) {
-        try (Connection cn = pool.getConnection();
-             PreparedStatement ps =  cn.prepareStatement("UPDATE users SET email = ?, password = ? WHERE id = ?")
-        ) {
-            ps.setString(1, user.getEmail());
-            ps.setString(2, user.getPassword());
-            ps.setInt(3, user.getId());
-            ps.execute();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public Optional<User> findByEmailAndPwd(String email, String password) {
@@ -105,4 +64,40 @@ public class UserDbStore {
         }
         return Optional.empty();
     }
-}
+
+    public List<User> findAll() {
+        List<User> users = new ArrayList<>();
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps =  cn.prepareStatement("SELECT * FROM users")
+        ) {
+            try (ResultSet it = ps.executeQuery()) {
+                while (it.next()) {
+                    users.add(
+                            new User(
+                                    it.getInt("id"),
+                                    it.getString("name"),
+                                    it.getString("email"),
+                                    it.getString("password")
+                            )
+                    );
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+
+    public void update(User user) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps =  cn.prepareStatement("UPDATE users SET email = ?, password = ? WHERE id = ?")
+        ) {
+            ps.setString(1, user.getEmail());
+            ps.setString(2, user.getPassword());
+            ps.setInt(3, user.getId());
+            ps.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}*/

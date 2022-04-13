@@ -3,33 +3,40 @@ package ru.job4j.dream.service;
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
 import ru.job4j.dream.model.Post;
-import ru.job4j.dream.persistence.PostDbStore;
+import ru.job4j.dream.persistence.PostRepository;
 
-import java.util.Collection;
+import java.util.*;
 
 @ThreadSafe
 @Service
 public class PostService {
 
-    private final PostDbStore postDbStore;
+    private final PostRepository repository;
 
-    public PostService(PostDbStore postDbStore) {
-        this.postDbStore = postDbStore;
+    public PostService(PostRepository repository) {
+        this.repository = repository;
     }
 
     public Collection<Post> findAll() {
-        return postDbStore.findAll();
+        List<Post> list = new ArrayList<>();
+        repository.findAll().forEach(list::add);
+        return list;
     }
 
     public Post findById(int id) {
-        return postDbStore.findById(id);
+        return repository.findById(id).get();
     }
 
     public void create(Post post) {
-        postDbStore.create(post);
+        repository.save(post);
     }
 
     public void update(Post post) {
-        postDbStore.update(post);
+        repository.updates(
+                post.getName(),
+                post.getDescription(),
+                post.getCity().getId(),
+                post.getId()
+        );
     }
 }

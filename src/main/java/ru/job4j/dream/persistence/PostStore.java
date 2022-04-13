@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/*
 @ThreadSafe
 @Repository
 public class PostStore {
@@ -55,4 +56,4 @@ public class PostStore {
                 post.getDescription(),
                 post.getCity()));
     }
-}
+}*/

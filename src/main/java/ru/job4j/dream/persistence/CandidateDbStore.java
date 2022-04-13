@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
+/*@Repository
 public class CandidateDbStore {
 
     private final BasicDataSource pool;
@@ -109,4 +109,4 @@ public class CandidateDbStore {
         return null;
     }
 
-}
+}*/

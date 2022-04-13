@@ -5,25 +5,21 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
-import ru.job4j.dream.model.Candidate;
+import ru.job4j.dream.model.Post;
 
-import java.time.LocalDateTime;
-
-public interface CandidateRepository extends CrudRepository<Candidate, Integer> {
+public interface PostRepository extends CrudRepository<Post, Integer> {
 
     @Transactional
     @Modifying(clearAutomatically = true)
-    @Query("UPDATE Candidate c SET " +
-            "c.name = :name, " +
-            "c.description = :description, " +
-            "c.created = :created, " +
-            "c.photo = :photo " +
-            "where c.id = :id")
-     void update(
+    @Query("UPDATE Post p SET " +
+            "p.name = :name, " +
+            "p.description = :description, " +
+            "p.city.id = :city_id " +
+            "where p.id = :id")
+    void updates(
             @Param("name") String name,
             @Param("description") String description,
-            @Param("created") LocalDateTime created,
-            @Param("photo") byte[] photo,
+            @Param("city_id") int city_id,
             @Param("id") int id
     );
 }
