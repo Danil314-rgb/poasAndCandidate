@@ -17,6 +17,17 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
+    <script>
+        function validate() {
+            let res = true;
+            let list = '';
+            if ($('#email').val() === '' || $('#password').val() === '') {
+                alert('Заполните все поля: Почта, Пароль');
+                res = false;
+            }
+            return res;
+        }
+    </script>
 
     <title>Работа мечты!</title>
 </head>
@@ -51,13 +62,16 @@
                 <form th:action="@{/login}" method="post">
                     <div class="form-group">
                         <label>Почта</label>
-                        <input type="text" class="form-control" name="email">
+                        <input type="text" class="form-control" name="email" id="name"
+                               placeholder="bloggood1@rambler.com"
+                               pattern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})">
                     </div>
                     <div class="form-group">
                         <label>Пароль</label>
-                        <input type="text" class="form-control" name="password">
+                        <input type="text" class="form-control" name="password" id="password"
+                               pattern=".{8,}">
                     </div>
-                    <button type="submit" class="btn btn-primary">Войти</button>
+                    <button type="submit" class="btn btn-primary" onclick="return validate()">Войти</button>
                 </form>
             </div>
         </div>

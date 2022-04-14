@@ -17,6 +17,17 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
+    <script>
+        function validate() {
+            let res = true;
+            let list = '';
+            if ($('#name').val() === '' || $('#description').val() === '') {
+                alert('Заполните все поля: Имя, Описание');
+                res = false;
+            }
+            return res;
+        }
+    </script>
 
     <title>Работа мечты</title>
 </head>
@@ -49,11 +60,14 @@
                     <input type="hidden" name="id" th:field="*{id}"/>
                     <div class="form-group">
                         <label for="name">Имя</label>
-                        <input type="text" class="form-control" name="name" id="name" th:field="*{name}">
+                        <input type="text" class="form-control" name="name" id="name"
+                               pattern="[A-Za-zА-Яа-яЁё]{1,10}"
+                               th:field="*{name}">
                     </div>
                     <div class="form-group">
                         <label for="description">Имя</label>
                         <input type="text" class="form-control" name="description" id="description"
+                               pattern="[A-Za-zА-Яа-яЁё]{1,10}"
                                th:field="*{description}">
                     </div>
                     <div class="form-group">
@@ -63,7 +77,7 @@
                                     th:field="*{city}"></option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <button type="submit" class="btn btn-primary" onclick="return validate()">Сохранить</button>
                 </form>
             </div>
             <div class="card-body">
