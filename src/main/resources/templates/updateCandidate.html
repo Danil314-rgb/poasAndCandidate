@@ -19,6 +19,11 @@
             crossorigin="anonymous"></script>
 
     <title>Работа мечты</title>
+    <style>
+        .types {
+            float: right;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -62,6 +67,13 @@
                         <input type="file" class="form-control" name="file" id="file">
                     </div>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
+                </form>
+            </div>
+            <div class="card-body">
+                <form th:action="@{/deleteCandidate}" method="post" th:object="${candidate}"
+                      enctype="multipart/form-data">
+                    <input type="hidden" name="id" th:field="*{id}"/>
+                    <button type="submit" class="btn btn-primary">Удалить Кандидата</button>
                 </form>
             </div>
         </div>

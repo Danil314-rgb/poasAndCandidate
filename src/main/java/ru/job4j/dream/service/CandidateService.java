@@ -39,4 +39,8 @@ public class CandidateService {
                 candidate.getId()
                 );
     }
+
+    public void delete(Candidate candidate) {
+        repository.delete(candidate);
+    }
 }

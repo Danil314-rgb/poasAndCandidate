@@ -39,4 +39,8 @@ public class PostService {
                 post.getId()
         );
     }
+
+    public void delete(Post post) {
+        repository.delete(post);
+    }
 }

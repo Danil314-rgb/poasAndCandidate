@@ -70,4 +70,10 @@ public class CandidateController {
                 .contentType(MediaType.parseMediaType("application/octet-stream"))
                 .body(new ByteArrayResource(candidate.getPhoto()));
     }
+
+    @PostMapping("/deleteCandidate")
+    public String deleteCandidate(@ModelAttribute Candidate candidate) {
+        candidateService.delete(candidate);
+        return "redirect:/candidates";
+    }
 }

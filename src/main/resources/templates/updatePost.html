@@ -66,6 +66,13 @@
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>
             </div>
+            <div class="card-body">
+                <form th:action="@{/deletePost}" method="post" th:object="${post}"
+                      enctype="multipart/form-data">
+                    <input type="hidden" name="id" th:field="*{id}"/>
+                    <button type="submit" class="btn btn-primary">Удалить Вакансию</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
