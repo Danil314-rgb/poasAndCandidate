@@ -26,6 +26,10 @@ public class CandidateService {
         repository.save(candidate);
     }
 
+    public void create(List<Candidate> candidates) {
+        repository.saveAll(candidates);
+    }
+
     public Candidate findById(int id) {
         return repository.findById(id).get();
     }

@@ -31,6 +31,10 @@ public class PostService {
         repository.save(post);
     }
 
+    public void create(List<Post> posts) {
+        repository.saveAll(posts);
+    }
+
     public void update(Post post) {
         repository.updates(
                 post.getName(),
