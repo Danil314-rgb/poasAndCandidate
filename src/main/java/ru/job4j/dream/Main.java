@@ -3,14 +3,12 @@ package ru.job4j.dream;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Properties;
-
 
 @SpringBootApplication
 public class Main extends SpringBootServletInitializer {
@@ -37,15 +35,15 @@ public class Main extends SpringBootServletInitializer {
     @Bean
     public BasicDataSource loadPool() {
         Properties cfg = loadDbProperties();
-        BasicDataSource pool = new BasicDataSource();
-        pool.setDriverClassName(cfg.getProperty("jdbc.driver"));
-        pool.setUrl(cfg.getProperty("jdbc.url"));
-        pool.setUsername(cfg.getProperty("jdbc.username"));
-        pool.setPassword(cfg.getProperty("jdbc.password"));
-        pool.setMinIdle(5);
-        pool.setMaxIdle(10);
-        pool.setMaxOpenPreparedStatements(100);
-        return pool;
+        BasicDataSource dataSource = new BasicDataSource();
+        dataSource.setDriverClassName(cfg.getProperty("jdbc.driver"));
+        dataSource.setUrl(cfg.getProperty("jdbc.url"));
+        dataSource.setUsername(cfg.getProperty("jdbc.username"));
+        dataSource.setPassword(cfg.getProperty("jdbc.password"));
+        dataSource.setMinIdle(5);
+        dataSource.setMaxIdle(10);
+        dataSource.setMaxOpenPreparedStatements(100);
+        return dataSource;
     }
 
     /*@Override

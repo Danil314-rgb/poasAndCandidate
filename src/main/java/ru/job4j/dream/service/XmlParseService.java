@@ -1,4 +1,4 @@
-package ru.job4j.dream.parse;
+package ru.job4j.dream.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,9 +19,9 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
-public class Parse {
+public class XmlParseService {
 
-    public static Map<Integer, ArrayList> parserXml(MultipartFile file) throws ParserConfigurationException, SAXException, IOException {
+    public Map<Integer, List> parserXml(MultipartFile file) throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
 
@@ -33,11 +33,18 @@ public class Parse {
 
         Document document = builder.parse(convFile);
 
-        Map<Integer, ArrayList> map = new HashMap<>();
-        ArrayList<Candidate> candidates = new ArrayList<>();
-        ArrayList<Post> posts = new ArrayList<>();
+        Map<Integer, List> map = new HashMap<>();
 
-        /*TODO can*/
+        List<Candidate> candidates = parseCandidates(document);
+        List<Post> posts = parsePosts(document);
+
+        map.put(1, candidates);
+        map.put(2, posts);
+        return map;
+    }
+
+    public List<Candidate> parseCandidates(Document document) {
+        List<Candidate> candidates = new ArrayList<>();
         NodeList candidatesElements = document.getDocumentElement().getElementsByTagName("candidate");
         for (int i = 0; i < candidatesElements.getLength(); i++) {
             Node item = candidatesElements.item(i);
@@ -51,8 +58,11 @@ public class Parse {
             );
             candidates.add(candidate);
         }
+        return candidates;
+    }
 
-        /*TODO post*/
+    public List<Post> parsePosts(Document document) {
+        List<Post> posts = new ArrayList<>();
         NodeList postsElements = document.getDocumentElement().getElementsByTagName("post");
         for (int i = 0; i < postsElements.getLength(); i++) {
             Node item = postsElements.item(i);
@@ -65,9 +75,6 @@ public class Parse {
             );
             posts.add(post);
         }
-
-        map.put(1, candidates);
-        map.put(2, posts);
-        return map;
+        return posts;
     }
 }

@@ -68,15 +68,17 @@
                     <div class="form-group">
                         <label>Почта</label>
                         <input type="text" class="form-control" name="email" id="email"
-                               placeholder="bloggood1@rambler.com"
-                               pattern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})">
+                               pattern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})"
+                               title="Пример заполения: bloggood1@rambler.com">
                     </div>
                     <div class="form-group">
                         <label>Пароль</label>
                         <input type="text" class="form-control" name="password" id="password"
-                               pattern=".{8,}">
+                               pattern=".{8,}"
+                               title="Пароль должен содержать не менее 8 символов">
                     </div>
-                    <button type="submit" class="btn btn-primary" onclick="return validate()">Зарегистрироваться</button>
+                    <button type="submit" class="btn btn-primary" onclick="return validate()">Зарегистрироваться
+                    </button>
                 </form>
             </div>
         </div>
