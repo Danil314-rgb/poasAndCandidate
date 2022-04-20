@@ -26,7 +26,6 @@ public class XmlParseService {
         DocumentBuilder builder = factory.newDocumentBuilder();
 
         File convFile = new File(file.getOriginalFilename());
-        /*var created = convFile.createNewFile();*/
         FileOutputStream fos = new FileOutputStream(convFile);
         fos.write(file.getBytes());
         fos.close();
@@ -50,7 +49,7 @@ public class XmlParseService {
             Node item = candidatesElements.item(i);
             NamedNodeMap attributes = item.getAttributes();
             Candidate candidate = new Candidate(
-                    Integer.parseInt(attributes.getNamedItem("id").getNodeValue()),
+                    0,
                     attributes.getNamedItem("name").getNodeValue(),
                     attributes.getNamedItem("description").getNodeValue(),
                     LocalDateTime.now(),
@@ -68,7 +67,7 @@ public class XmlParseService {
             Node item = postsElements.item(i);
             NamedNodeMap attributes = item.getAttributes();
             Post post = new Post(
-                    Integer.parseInt(attributes.getNamedItem("id").getNodeValue()),
+                    0,
                     attributes.getNamedItem("name").getNodeValue(),
                     attributes.getNamedItem("description").getNodeValue(),
                     new City(Integer.parseInt(attributes.getNamedItem("city_id").getNodeValue()))
